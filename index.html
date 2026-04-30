@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hourly Calculator</title>
+
+<style>
+body{font-family:Arial;margin:0;padding:20px;background:#f3f1eb}
+.page{max-width:900px;margin:auto;padding-bottom:100px}
+input,select{width:100%;padding:10px;margin:5px 0}
+.sticky{
+position:fixed;bottom:0;left:0;width:100%;
+background:#234f32;color:#fff;padding:12px;
+display:flex;justify-content:center;font-size:22px;font-weight:bold}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<h2>Hourly Calculator</h2>
+
+<label>Hourly Rate</label>
+<select id="rate">
+<option value="280">280</option>
+<option value="300">300</option>
+<option value="320">320</option>
+<option value="340" selected>340</option>
+<option value="360">360</option>
+<option value="380">380</option>
+</select>
+
+<label>Base Hours</label>
+<select id="base">
+<option value="4.5" selected>0.5 day (4.5h)</option>
+<option value="9">1 day (9h)</option>
+<option value="13.5">1.5 day</option>
+<option value="18">2 day</option>
+</select>
+
+<label>Extra Hours</label>
+<input id="extra" type="text">
+
+<label>Manual Override</label>
+<input id="override" type="checkbox">
+
+<label>Manual Hours</label>
+<input id="manual" type="text">
+
+</div>
+
+<div class="sticky" id="total">$0</div>
+
+<script>
+function num(id){
+let v=document.getElementById(id).value;
+if(!v)return 0;
+v=v.replace(/[^0-9.]/g,"");
+return v==""?0:Number(v);
+}
+
+function calc(){
+let rate=num("rate");
+let override=document.getElementById("override").checked;
+
+let hours=0;
+if(override){
+hours=num("manual");
+}else{
+hours=num("base")+num("extra");
+}
+
+let total=rate*hours;
+
+document.getElementById("total").innerText="$"+Math.round(total);
+}
+
+document.querySelectorAll("input,select").forEach(e=>{
+e.addEventListener("input",calc);
+});
+
+calc();
+</script>
+
+</body>
+</html>
