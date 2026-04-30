@@ -706,12 +706,17 @@
       const riskPercent = document.getElementById("riskPercent");
       riskPercent.innerHTML = "";
       const blankOption = document.createElement("option"); blankOption.value="0"; blankOption.textContent="None"; riskPercent.appendChild(blankOption);
-      for (let pct = 5; pct <= 50; pct += 5) {
-        const option = document.createElement("option");
-        option.value = pct;
-        option.textContent = pct + "%";
-        riskPercent.appendChild(option);
-      }
+      const riskValues = [
+         2.5, 5, 7.5, 10, 12.5,
+         15, 20, 25, 30, 35, 40, 45, 50
+      ];
+
+      riskValues.forEach(pct => {
+      const option = document.createElement("option");
+      option.value = pct;
+      option.textContent = pct + "%";
+      riskPercent.appendChild(option);
+    });
     }
 
     function calculate() {
